@@ -1,8 +1,8 @@
 // Practical task 1
 let newWindow = window.open("", "", "width = 300 height = 300");
 window.setTimeout(() => newWindow.resizeTo(500, 500), 2000);
-window.setTimeout(() => newWindow.moveTo(200,200), 2000);
-window.setTimeout(() => newWindow.close(), 2000);
+window.setTimeout(() => newWindow.moveTo(200,200), 4000);
+window.setTimeout(() => newWindow.close(), 6000);
 
 // Practical task 2
 let textElement = document.querySelector("#text");
