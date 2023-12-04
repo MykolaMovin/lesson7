@@ -1,119 +1,65 @@
 // Practical task 1
-function propsCount(currentOject){
-    let keys = Object.keys(currentOject);
-    return keys.length;
-};
+let newWindow = window.open("", "", "width = 300 height = 300");
+window.setTimeout(() => newWindow.resizeTo(500, 500), 2000);
+window.setTimeout(() => newWindow.moveTo(200,200), 2000);
+window.setTimeout(() => newWindow.close(), 2000);
 
 // Practical task 2
-let arbitraryObject = {
-    firstProperty: 'This is the first property',
-    secondProperty: 'This is the second property',
-    thirdProperty: 'This is the third property',
-    fourthProperty: 'This is the fourth property',
-    fifthProperty: 'This is the fifth property'
-};
+let textElement = document.querySelector("#text");
 
-function showPrpos(obj) {
-    for (let prop in obj) {
-        console.log(prop, obj[prop]);
-    };
-}
+function changeCSS(element) {
+    element.addEventListener("click", () => {
+        element.style.color = 'orange';
+        element.style.fontSize = '20px';
+        element.style.fontFamily = 'Comic Sans MS';
+    });
+};
 
 // Practical task 3
-class Person {
-    constructor(name, surname) {
-        this.name = name;
-        this.surname = surname;
-        this.fullName = (name = this.name, surname = this.surname) => console.log(name, surname)
-    }
-}
-
-class Student extends Person {
-    constructor(name, surname, year) {
-        super(name, surname);
-        let date = new Date();
-        this.admissionYear = year;
-        this.fullName = (middleName) => console.log(this.name, this.surname, middleName);
-        this.showCourse = (admissionYear = this.admissionYear) => {
-            return (date.getFullYear() - admissionYear);
-        };
-
-    }
-}
-
-const stud1 = new Student("Petro", " Petrenko ", 2015);
-console.log(stud1.fullName('Petrovych'));
-console.log("Current course: " + stud1.showCourse());
+document.getElementById("button1")
+    .addEventListener("click", () => document.body.style.backgroundColor = 'blue');
+document.getElementById("button2")
+    .addEventListener("dblclick", () => document.body.style.backgroundColor = 'pink');
+document.getElementById("button3")
+    .addEventListener("mousedown", () => document.body.style.backgroundColor = 'brown');
+document.getElementById("button3")
+    .addEventListener("mouseup", () => document.body.style.backgroundColor = 'white');
+document.querySelector('#link')
+    .addEventListener("mouseover", () => document.body.style.backgroundColor = 'yellow');
+document.querySelector('#link')
+    .addEventListener("mouseout", () => document.body.style.backgroundColor = 'white');
 
 // Practical task 4
-class Worker {
-    constructor(fullName, dayRate, workingDays){
-        this.fullName = fullName;
-        this.dayRate = dayRate;
-        this.workingDays = workingDays;
+const dropdown = document.getElementById("dropdown");
+document.getElementById("button4")
+    .addEventListener("click", () => removeDropdownElement(dropdown));
 
-    };
+function removeDropdownElement(dropdown) {
+    let value = dropdown.value;
+    document.querySelector(`[value="${value}"]`).remove();
+};
 
-    showSalary(){
-        return this.dayRate * this.workingDays;
-    };
-
-    #_expirience = 1.2;
-
-    showSalaryWithExperience(){
-        return ((this.dayRate * this.workingDays) * this.experience);
-    };
-
-    get experience(){
-        return this.#_expirience;
-    };
-
-    set experience(value){
-        this.#_expirience = value;
-    };
+// Practical task 5
+const button = document.getElementById("button5");
+function liveButton(liveButton) {
+    actions.pressed(liveButton);
+    actions.hOver(liveButton);
+    actions.hOut(liveButton);
 }
 
-let worker = new Worker();
-worker.experience = 1.5;
-console.log(worker.experience);
+const actions = {
+    pressed: element => element.addEventListener("click", () => document.getElementById("liveButtonText").innerHTML = "<p>I was pressed!</p>"),
+    hOver: element => element.addEventListener("mouseover", () => document.getElementById("liveButtonText").innerHTML = "<p>Mouse on me!</p>"),
+    hOut: element => element.addEventListener("mouseout", () => document.getElementById("liveButtonText").innerHTML = "<p>Mouse is not on me!</p>")
+}
 
-let worker1 = new Worker("John Johnson", 20, 23);
-console.log(worker1.fullName);
-console.log(worker1.fullName + ' salary: ' + worker1.showSalary());
-console.log("New experience: " + worker1.experience);
-console.log(worker1.fullName + ' salary: ' + worker1.showSalaryWithExperience());
-worker1.experience = 1.5;
-console.log("New experience: " + worker1.experience);
-console.log(worker1.fullName + ' salary: ' + worker1.showSalaryWithExperience());
+liveButton(button)
 
-let worker2 = new Worker("Tom Thomson", 48, 22);
-console.log(worker2.fullName);
-console.log(worker2.fullName + ' salary: ' + worker2.showSalary());
-console.log("New experience: " + worker1.experience);
-console.log(worker2.fullName + ' salary: ' + worker2.showSalaryWithExperience());
-worker2.experience = 1.5;
-console.log("New experience: " + worker1.experience);
-console.log(worker2.fullName + ' salary: ' + worker2.showSalaryWithExperience());
+//Practical task 6
+function showWindowSize() { 
+     document.body.innerHTML = `Width: ${window.innerWidth}, Height: ${window.innerHeight}`;
+}
 
-let worker3 = new Worker("Andy Ander", 29, 23);
-console.log(worker3.fullName);
-console.log(worker3.fullName + ' salary: ' + worker3.showSalary());
-console.log("New experience: " + worker1.experience);
-console.log(worker3.fullName + ' salary: ' + worker3.showSalaryWithExperience());
-worker3.experience = 1.5;
-console.log("New experience: " + worker1.experience);
-console.log(worker3.fullName + ' salary: ' + worker3.showSalaryWithExperience());
+showWindowSize();
 
-function sortBySalaryWithExpirience(arrayOfWorkers){
-    return arrayOfWorkers.sort((a, b) => a.showSalaryWithExperience() - b.showSalaryWithExperience());
-};
-
-const workers = [worker1, worker2, worker3];
-const sortedWorkers = sortBySalaryWithExpirience(workers);
-for (worker in sortedWorkers){
-    console.log(`${sortedWorkers[worker].fullName}: ${sortedWorkers[worker].showSalaryWithExperience()}`);
-};
-
-function dynamicWorkersSorting(workers, property){
-    return workers.sort((a, b) => a[property] - b[property]);
-};
+window.addEventListener('resize', showWindowSize);
